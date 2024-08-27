@@ -37,7 +37,7 @@ RUN apt-get update \
 
 # Canon driver installation
 COPY canon-drivers/full/cnijfilter-common.deb /tmp/
-RUN dpkg -i /tmp/cnijfilter-common.deb || apt-get install -f -y \
+RUN dpkg -i /tmp/cnijfilter-common.deb \
     && rm -rf /tmp/cnijfilter-common.deb
 
 COPY rootfs /
