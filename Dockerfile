@@ -30,7 +30,7 @@ RUN apt-get update \
         procps \
         whois \
         apt-utils \
-        qemu-user-t static
+        qemu-user-static
 
 # Canon driver installation
 COPY canon-drivers/full/cnijfilter-common.deb /tmp/
