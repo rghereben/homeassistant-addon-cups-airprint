@@ -32,6 +32,13 @@ RUN apt-get update \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
+# Add the Canon driver installation
+RUN wget -qO- https://gdlp01.c-wss.com/gds/8/0100009108/01/cnijfilter2-5.50-1-deb.tar.gz | tar -xz \
+    && cd cnijfilter2-5.50-1-deb \
+    && ./install.sh \
+    && cd .. \
+    && rm -rf cnijfilter2-5.50-1-deb
+
 COPY rootfs /
 
 # Add user and disable sudo password checking
