@@ -29,16 +29,23 @@ RUN apt-get update \
         bash-completion \
         procps \
         whois \
-        wget \
-        qemu-user \
-        qemu-user-binfmt \
-    && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/*
+        apt-utils \
+        qemu-user-static
 
 # Canon driver installation
 COPY canon-drivers/full/cnijfilter-common.deb /tmp/
 RUN dpkg -i /tmp/cnijfilter-common.deb \
     && rm -rf /tmp/cnijfilter-common.deb
+
+# Install Canon filter
+RUN gpg --keyserver keyserver.ubuntu.com --recv-keys 3BA6E6CCE411CFCF \
+    && gpg --no-default-keyring --keyring /etc/apt/keyrings/thierry-fork-michael-gruz.gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 3BA6E6CCE411CFCF \
+    && echo "deb [signed-by=/etc/apt/keyrings/thierry-fork-michael-gruz.gpg] https://ppa.launchpadcontent.net/thierry-f/fork-michael-gruz/ubuntu focal main" | tee /etc/apt/sources.list.d/thierry-f-fork-michael-gruz.list \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+        cnijfilter2 \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY rootfs /
 
