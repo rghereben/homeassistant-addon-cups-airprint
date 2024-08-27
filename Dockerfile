@@ -29,6 +29,7 @@ RUN apt-get update \
         bash-completion \
         procps \
         whois \
+        wget \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
