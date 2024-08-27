@@ -30,7 +30,7 @@ RUN apt-get update \
         procps \
         whois \
         apt-utils \
-        qemu-user-static
+        qemu-user-t static
 
 # Canon driver installation
 COPY canon-drivers/full/cnijfilter-common.deb /tmp/
@@ -63,4 +63,4 @@ EXPOSE 631
 
 RUN chmod a+x /run.sh
 
-#CMD ["/run.sh"]
+CMD ["/run.sh"]
